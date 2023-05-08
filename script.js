@@ -97,6 +97,24 @@ const countMoney = (money) => {
 	availableMoney.textContent = ` ${newMoney} zł`;
 };
 
+const deleteTransaction = (id) => {
+	const transactionToDelete = document.getElementById(id);
+
+	const transactionAmount = parseFloat(
+		transactionToDelete.childNodes[3].innerText
+	); //indekx 3 przechowuje wartość którą potem bedziemy wywalac
+	//parsefloat bierze tylko cyfry dlatego nie bedzie zł, nie zwraca liter
+	const indexOfTransaction = moneyArr.indexOf(transactionAmount);
+	moneyArr.splice(indexOfTransaction, 1);
+	transactionToDelete.classList.contains('income')
+		? incomeSection.removeChild(transactionToDelete)
+		: expansesSection.removeChild(transactionToDelete);
+
+	countMoney(moneyArr);
+	// console.log(transactionAmount);
+	// console.log(moneyArr);
+};
+
 addTransactionBtn.addEventListener('click', showPanel);
 cancelBtn.addEventListener('click', closePanel);
 saveBtn.addEventListener('click', checkForm);
