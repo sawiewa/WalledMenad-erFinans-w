@@ -13,11 +13,14 @@ const cancelBtn = document.querySelector('.cancel');
 const deleteBtn = document.querySelector('.delete'); //każdy osobny x
 const deleteAllBtn = document.querySelector('.delete-all');
 
+const lightStyleBtn = document.querySelector('.light');
+const darkStyleBtn = document.querySelector('.dark');
+
 let root = document.documentElement;
 let ID = 0;
 let categoryIcon;
 let selectedCategory;
-let moneyArr = [0];
+let moneyArr = [0]; //musi byc 0 dodane ponieważ w tablicy byłoby puste i nie dałoby sie wykonac reduce, na pustej tablisy sie nieda
 
 const showPanel = () => {
 	addTransactionPanel.style.display = 'flex';
@@ -115,6 +118,27 @@ const deleteTransaction = (id) => {
 	// console.log(moneyArr);
 };
 
+const deleteAllTransaction = () => {
+	incomeSection.innerHTML = '<h3>Przychód</h3>';
+	expansesSection.innerHTML = '<h3>Wydatki</h3>';
+	availableMoney.textContent = '0zł';
+	moneyArr = [0];
+};
+
+const changeStyleToLight = () => {
+	root.style.setProperty('--first-color', '#f9f9f9');
+	root.style.setProperty('--second-color', '#14161f');
+	root.style.setProperty('--border-color', 'rgba(0, 0, 0, 0.2)');
+};
+const changeStyleToDark = () => {
+	root.style.setProperty('--first-color', '#14161f');
+	root.style.setProperty('--second-color', '#f9f9f9');
+	root.style.setProperty('--border-color', 'rgba(255, 255, 255, 0.4)');
+};
+
 addTransactionBtn.addEventListener('click', showPanel);
 cancelBtn.addEventListener('click', closePanel);
 saveBtn.addEventListener('click', checkForm);
+deleteAllBtn.addEventListener('click', deleteAllTransaction);
+lightStyleBtn.addEventListener('click', changeStyleToLight);
+darkStyleBtn.addEventListener('click', changeStyleToDark);
